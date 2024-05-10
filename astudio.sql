@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 11:58 PM
+-- Generation Time: May 11, 2024 at 12:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -146,6 +146,13 @@ CREATE TABLE `oauth_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_access_tokens`
+--
+
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('3b8ec972a07e785e79b0e0ea9517e6685f58120198d345366d2310be8dc0f14b284215a1f69d83df', 3, 1, 'Personal Access Token', '[]', 0, '2024-05-10 18:18:44', '2024-05-10 18:18:45', '2025-05-10 22:18:44');
 
 -- --------------------------------------------------------
 
@@ -325,8 +332,8 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `date_of_birth` date NOT NULL,
-  `gender` varchar(255) NOT NULL
+  `date_of_birth` date DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -335,7 +342,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `first_name`, `last_name`, `date_of_birth`, `gender`) VALUES
 (1, 'abc@xyz.com', 'A01234560A', NULL, NULL, NULL, 'Mohammad', 'Salman', '2024-01-01', 'Male'),
-(2, 'ghg@hbdh.com', '$2y$12$qjG7Y4k7IqgYbYP2sDzHpuBjiB3s1fEu.fH1B0K/Bho4/7jaLm49a', NULL, '2024-05-10 12:14:45', '2024-05-10 12:14:45', 'ABC', 'XYZ', '2024-04-12', 'Male');
+(2, 'ghg@hbdh.com', '$2y$12$qjG7Y4k7IqgYbYP2sDzHpuBjiB3s1fEu.fH1B0K/Bho4/7jaLm49a', NULL, '2024-05-10 12:14:45', '2024-05-10 12:14:45', 'ABC', 'XYZ', '2024-04-12', 'Male'),
+(3, 'hgsd@jhgjg.com', '$2y$12$ZCk16GHqjdQqkUZLGrPSvuMpSIeIjymZziLp3wrpUcwXzhUgL5s8a', NULL, '2024-05-10 18:13:17', '2024-05-10 18:13:17', 'ABC', 'XYZ', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -512,7 +520,7 @@ ALTER TABLE `timesheets`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
