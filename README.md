@@ -1,4 +1,4 @@
-# Laravel Passport API
+# Laravel Authentication app with Passport
 
 This is a simple API built with Laravel Passport for user authentication.
 
