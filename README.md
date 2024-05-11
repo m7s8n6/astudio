@@ -62,7 +62,7 @@ The following API endpoints are available:
 
 - `GET /api/user`: Retrieve the authenticated user's details. Requires authentication.
 
-- Add your custom endpoints here...
+- Rest endpoints are according to the guidelines provided.
 
 ## Authentication
 
@@ -70,5 +70,5 @@ This API uses Laravel Passport for authentication. When registering or logging i
 
 Example header:
 
-## Authorization: Bearer <access-token>
+- Authorization: Bearer <access-token>
 
