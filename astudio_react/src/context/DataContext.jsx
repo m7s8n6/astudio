@@ -11,6 +11,7 @@ const DataProvider = ({ page, children }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
   // Function to fetch data from the API
+
   const fetchData = async () => {
     const response = await axios.get(`https://dummyjson.com/${page}`, {
       params: {
@@ -33,7 +34,6 @@ const DataProvider = ({ page, children }) => {
   };
 
   const handleSearchQueryChange = (val) => {
-    console.log(val);
     setSearchQuery(val);
     const filtered = originalData.filter((item) =>
       Object.values(item).some(
@@ -49,12 +49,27 @@ const DataProvider = ({ page, children }) => {
     setCurrentPage(1); // Reset to first page when filter applied
   };
 
+  const filterDataByKeyValue = (key, value) => {
+    console.log(key, value);
+    if (value == "") {
+      return setData((pre) => ({ ...pre, [page]: originalData }));
+    }
+    const filtered = originalData.filter((item) => {
+      return (
+        item[key] &&
+        item[key].toString().toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setData((pre) => ({ ...pre, [page]: filtered }));
+  };
+
   const handlePaginationChange = (page) => {
     setCurrentPage(page);
   };
 
   const value = {
     data,
+    originalData,
     pageSize,
     currentPage,
     searchQuery,
@@ -63,6 +78,7 @@ const DataProvider = ({ page, children }) => {
     handleSearchQueryChange,
     handleFilterChange,
     handlePaginationChange,
+    filterDataByKeyValue,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

@@ -1,3 +1,4 @@
+import { Pagination } from "@mui/material";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import React, { useRef, useState } from "react";
 
@@ -11,6 +12,7 @@ const Table = ({
   handlePageSizeChange,
   handlePaginationChange,
   handleSearchQueryChange,
+  filterComponents,
 }) => {
   const totalPages = Math.ceil(total / pageSize);
   const InputRef = useRef(null);
@@ -21,6 +23,7 @@ const Table = ({
       InputRef.current.focus();
     }
   };
+
   return (
     <div className="container mx-auto mt-4">
       <div className="flex items-center gap-2 mb-4">
@@ -38,7 +41,7 @@ const Table = ({
         <span className="mx-2 py-2">Entries</span>
 
         <div className="w-px mx-2 h-5 bg-gray-400" />
-        <div className="">
+        <div>
           {showInput ? (
             <input
               ref={InputRef}
@@ -47,7 +50,7 @@ const Table = ({
               value={searchQuery}
               onBlur={() => setShowInput(false)}
               onChange={(e) => handleSearchQueryChange(e.target.value)}
-              className="w-full px-4 py-2  rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 text-md rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
             />
           ) : (
             <button onClick={setInput} className="border p-2 rounded-md">
@@ -55,7 +58,13 @@ const Table = ({
             </button>
           )}
         </div>
+        {filterComponents ? (
+          filterComponents
+        ) : (
+          <div className="w-px mx-2 h-5 bg-gray-400" />
+        )}
       </div>
+
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr>
@@ -84,20 +93,31 @@ const Table = ({
           ))}
         </tbody>
       </table>
+
       <div className="flex justify-between mt-4">
         <button
-          onClick={() => {
-            // setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-            handlePaginationChange((prevPage) => Math.max(prevPage - 1, 1));
-          }}
+          onClick={() =>
+            handlePaginationChange((prevPage) => Math.max(prevPage - 1, 1))
+          }
           disabled={currentPage === 1}
           className="px-4 py-2 rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none"
         >
           Previous
         </button>
         <span>
-          {currentPage} of {totalPages}
+          <Pagination
+            className="mt-2"
+            color="secondary"
+            count={totalPages}
+            page={currentPage}
+            onChange={(e, pageNumber) =>
+              handlePaginationChange((prevPage) => pageNumber)
+            }
+            variant="outlined"
+            shape="rounded"
+          />
         </span>
+
         <button
           onClick={() => {
             handlePaginationChange((prevPage) =>
